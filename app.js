@@ -42,7 +42,7 @@ io.on("connection", function(socket) {
 
 const PORT = process.env.PORT || 5500;
 
-http.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 // const IO_PORT = 5500;
 // http.listen(IO_PORT, () =>
