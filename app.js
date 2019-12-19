@@ -1,5 +1,6 @@
-const express = require("express");
-const socketIO = require("socket.io");
+const app = require("express")();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
 const path = require("path");
 
 const OSC = require("osc-js");
@@ -13,14 +14,11 @@ osc.on("/test/random", message => {
   console.log("好想睡覺喔");
 });
 
-const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, "./public/index.html");
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+);
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-const io = socketIO(server);
+// const io = socketIO(server);
 
 io.on("connection", socket => {
   console.log("Client connected");
@@ -37,4 +35,8 @@ io.on("connection", function(socket) {
     console.log(obj);
     io.emit("FINAL", obj);
   });
+});
+
+http.listen(5000, () => {
+  console.log("listening on *:5000");
 });
