@@ -43,3 +43,8 @@ io.on("connection", function(socket) {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+const IO_PORT = 5500;
+http.listen(IO_PORT, () =>
+  console.log(`Socket.IO is listening on *: ${IO_PORT}`)
+);

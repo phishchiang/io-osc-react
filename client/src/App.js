@@ -12,9 +12,9 @@ function App() {
 
   const containerRef = useRef(null);
 
-  let ENDPOINT = "localhost:3000";
+  let ENDPOINT = "localhost:5500";
   // Init Setup
-  // let ENDPOINT = "192.168.0.106:3000";
+  // let ENDPOINT = "192.168.0.106:5500";
 
   const connectWebSocket = () => {
     //開啟
