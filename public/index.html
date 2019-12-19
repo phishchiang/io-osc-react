@@ -25,13 +25,13 @@
     <div id="logData" fontSize="80px"></div>
     <button id="button" class="btn">案報我阿阿阿阿!!!!PRESS MEEEEE</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/osc-js@2.0.2/lib/osc.min.js"></script> -->
+    <!-- <script src="../node_modules/socket.io-client/dist/socket.io.dev.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/osc-js@2.0.2/lib/osc.min.js"></script>
     <script>
-      var socket = io();
-      var el = document.getElementById("server-time");
-      socket.on("time", function(timeString) {
-        el.innerHTML = "Server time: " + timeString;
-      });
+      var socket = io(); // setup the ip and port for IO
+
+      var osc = new OSC();
+      osc.open(); // connect by default to ws://localhost:8080
 
       window.addEventListener("load", function() {
         let button = document.querySelector("#button");
@@ -48,9 +48,9 @@
           let logdata = document.querySelector("#logData");
           logdata.innerHTML = `X : ${obj.x}  Y : ${obj.y} data :I ${obj.phish}`;
           console.log(obj);
-          // var message = new OSC.Message("/test/random", Math.random());
-          // console.log(message);
-          // osc.send(message);
+          var message = new OSC.Message("/test/random", Math.random());
+          console.log(message);
+          osc.send(message);
         });
       });
     </script>
