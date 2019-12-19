@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .btn {
+        background-color: #db21ad; /* Green */
+        border: none;
+        color: white;
+        padding: 50px 64px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 32px;
+        font-family: "Playfair Display", serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p id="server-time"></p>
+    <div id="logData" fontSize="80px"></div>
+    <button id="button" class="btn">案報我阿阿阿阿!!!!PRESS MEEEEE</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/osc-js@2.0.2/lib/osc.min.js"></script> -->
+    <script>
+      var socket = io();
+      var el = document.getElementById("server-time");
+      socket.on("time", function(timeString) {
+        el.innerHTML = "Server time: " + timeString;
+      });
+
+      window.addEventListener("load", function() {
+        let button = document.querySelector("#button");
+        button.addEventListener("mousedown", e => {
+          console.log(e.offsetX, e.offsetY);
+          socket.emit("mouse", {
+            x: e.offsetX,
+            y: e.offsetY,
+            phish: "love UUU@@@!!!"
+          });
+        });
+
+        socket.on("FINAL", function(obj) {
+          let logdata = document.querySelector("#logData");
+          logdata.innerHTML = `X : ${obj.x}  Y : ${obj.y} data :I ${obj.phish}`;
+          console.log(obj);
+          // var message = new OSC.Message("/test/random", Math.random());
+          // console.log(message);
+          // osc.send(message);
+        });
+      });
+    </script>
+    <button id="send">Send Message</button>
+    <!-- <script type="text/javascript">
+      var osc = new OSC();
+      osc.open(); // connect by default to ws://localhost:8080
+
+      document.getElementById('send').addEventListener('click', function() {
+        var message = new OSC.Message('/test/random', Math.random());
+        console.log(message);
+        osc.send(message);
+        socket.emit('gogogo', {
+          ggg: 'GGG!!!'
+        });
+      });
+    </script> -->
+  </body>
+</html>
