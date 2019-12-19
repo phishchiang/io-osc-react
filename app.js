@@ -40,6 +40,6 @@ io.on("connection", function(socket) {
   });
 });
 
-http.listen(5000, () => {
-  console.log("listening on *:5000");
+http.listen(3000, () => {
+  console.log("listening on *:3000");
 });
