@@ -11,7 +11,6 @@ osc.open(); // start a WebSocket server on port 8080
 
 osc.on("/test/random", message => {
   console.log(message.args); // prints the message arguments
-  console.log("好想睡覺喔");
 });
 
 const INDEX = path.join(__dirname, "./client/build/index.html");

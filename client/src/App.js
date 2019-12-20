@@ -46,7 +46,7 @@ function App() {
   // Handle chatContent of 'IOT_in_02' emit!!!
   useEffect(() => {
     if (io) {
-      io.emit("IOT_in_02", mouseposi);
+      io.emit("touch_posi", mouseposi);
     }
   }, [mouseposi]);
 
@@ -105,21 +105,21 @@ function App() {
     setTouchOn(false);
   };
 
-  const debounce = (func, wait = 1000, immediate = true) => {
-    var timeout;
-    return function() {
-      var context = this,
-        args = arguments;
-      var later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
-  };
+  // const debounce = (func, wait = 1000, immediate = true) => {
+  //   var timeout;
+  //   return function() {
+  //     var context = this,
+  //       args = arguments;
+  //     var later = function() {
+  //       timeout = null;
+  //       if (!immediate) func.apply(context, args);
+  //     };
+  //     var callNow = immediate && !timeout;
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(later, wait);
+  //     if (callNow) func.apply(context, args);
+  //   };
+  // };
 
   return (
     <Fragment>
@@ -127,7 +127,7 @@ function App() {
         className="touch-area"
         ref={containerRef}
         onTouchStart={onTouchStart}
-        onTouchMove={debounce(onMouseMove)}
+        onTouchMove={onMouseMove}
         onTouchEnd={onTouchEnd}
       >
         <div>{`X position : ${mouseposi[0]}`}</div>
