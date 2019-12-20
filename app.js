@@ -1,7 +1,7 @@
 // const app = express();
 
 const express = require("express");
-const app = express();
+// const app = express();
 const socketIO = require("socket.io");
 const path = require("path");
 
@@ -16,7 +16,7 @@ osc.on("/test/random", message => {
   console.log("好想睡覺喔");
 });
 
-app.use(express.static("client/build"));
+// app.use(express.static("client/build"));
 
 const INDEX = path.join(__dirname, "./client/build/index.html");
 const PORT = process.env.PORT || 3000;

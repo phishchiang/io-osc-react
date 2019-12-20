@@ -12,7 +12,7 @@ function App() {
 
   const containerRef = useRef(null);
 
-  let ENDPOINT = "localhost:3000";
+  let ENDPOINT = "http://localhost:3000";
   // Init Setup
   // let ENDPOINT = "192.168.0.106:5500";
 
