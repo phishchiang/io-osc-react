@@ -19,7 +19,7 @@ osc.on("/test/random", message => {
 app.use(express.static("client/build"));
 
 const INDEX = path.join(__dirname, "./client/build/index.html");
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT || 3000;
 
 const server = express()
   .use(express.static("client/build"))
