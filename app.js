@@ -11,10 +11,10 @@ const osc = new OSC({ plugin: new OSC.BridgePlugin(config) });
 
 osc.open(); // start a WebSocket server on port 8080
 
-osc.on("/test/random", message => {
-  console.log(message.args); // prints the message arguments
-  console.log("好想睡覺喔");
-});
+// osc.on("/test/random", message => {
+//   console.log(message.args); // prints the message arguments
+//   console.log("好想睡覺喔");
+// });
 
 // app.use(express.static("client/build"));
 
@@ -43,6 +43,10 @@ io.on("connection", function(socket) {
     console.log("got something on the server");
     console.log(obj);
     io.emit("FINAL", obj);
+    osc.on("/test/random", message => {
+      console.log(message.args); // prints the message arguments
+      console.log("好想睡覺喔");
+    });
   });
   socket.on("gogogo", function(obj) {
     console.log(obj);
