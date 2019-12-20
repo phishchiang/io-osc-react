@@ -5,6 +5,7 @@ import "./App.css";
 
 function App() {
   let OSCCC;
+  let message;
 
   const [io, setIo] = useState(null);
   const [osc, setOsc] = useState(null);
@@ -91,7 +92,7 @@ function App() {
 
   const onTouchStart = e => {
     setTouchOn(true);
-    let message = new oscJS.Message("/test/random", Math.random());
+    message = new oscJS.Message("/test/random", Math.random());
     osc.send(message);
   };
 
