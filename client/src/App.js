@@ -18,7 +18,7 @@ function App() {
 
   const connectWebSocket = () => {
     //開啟
-    setIo(socket(ENDPOINT));
+    setIo(socket());
   };
 
   useEffect(() => {

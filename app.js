@@ -40,8 +40,9 @@ io.on("connection", socket => {
 io.on("connection", function(socket) {
   console.log(socket.id);
   socket.on("mouse", function(obj) {
-    console.log(obj);
-    io.emit("FINAL", obj);
+    console.log("got something on the server");
+    console.log(Math.random());
+    io.emit("FINAL", Math.random());
   });
   socket.on("gogogo", function(obj) {
     console.log(obj);
