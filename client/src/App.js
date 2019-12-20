@@ -122,21 +122,19 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div
-          className="touch-area"
-          ref={containerRef}
-          onTouchStart={onTouchStart}
-          onTouchMove={debounce(onMouseMove)}
-          onTouchEnd={onTouchEnd}
-        >
-          <p>{`X position : ${mouseposi[0]}`}</p>
-          <p>{`Y position : ${mouseposi[1]}`}</p>
-          <p>{`Laser gun : ${touchOn}`}</p>
-        </div>
-      </header>
-    </div>
+    <Fragment>
+      <div
+        className="touch-area"
+        ref={containerRef}
+        onTouchStart={onTouchStart}
+        onTouchMove={debounce(onMouseMove)}
+        onTouchEnd={onTouchEnd}
+      >
+        <div>{`X position : ${mouseposi[0]}`}</div>
+        <div>{`Y position : ${mouseposi[1]}`}</div>
+        <div>{`Laser gun : ${touchOn}`}</div>
+      </div>
+    </Fragment>
   );
 }
 
