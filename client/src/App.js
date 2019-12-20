@@ -5,7 +5,7 @@ import "./App.css";
 
 function App() {
   let OSCCC;
-  let message;
+  let osc_message;
 
   const [io, setIo] = useState(null);
   const [osc, setOsc] = useState(null);
@@ -55,6 +55,8 @@ function App() {
     if (io) {
       io.on("FINAL", message => {
         console.log(message);
+        osc_message = new oscJS.Message("/test/random", Math.random());
+        osc.send(osc_message);
         // console.log(osc);
       });
     }
@@ -92,8 +94,8 @@ function App() {
 
   const onTouchStart = e => {
     setTouchOn(true);
-    message = new oscJS.Message("/test/random", Math.random());
-    osc.send(message);
+    // message = new oscJS.Message("/test/random", Math.random());
+    // osc.send(message);
   };
 
   const onTouchEnd = e => {
