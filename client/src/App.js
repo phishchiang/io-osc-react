@@ -6,6 +6,7 @@ import "./App.css";
 function App() {
   let OSC_OBJ;
   let osc_message;
+  let bundle;
 
   const [io, setIo] = useState(null);
   const [osc, setOsc] = useState(null);
@@ -61,7 +62,7 @@ function App() {
           "/test/02",
           message[1]
         );
-        const bundle = new OSC.Bundle([osc_message]);
+        bundle = new oscJS.Bundle([osc_message]);
         console.log(bundle);
         osc.send(bundle);
       });
