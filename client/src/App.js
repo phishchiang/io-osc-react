@@ -55,7 +55,10 @@ function App() {
     if (io) {
       io.on("FINAL", message => {
         console.log(message);
-        osc_message = new oscJS.Message("/test/random", message);
+        osc_message = new oscJS.Message(
+          "/test/random",
+          JSON.stringify(message)
+        );
         osc.send(osc_message);
         // console.log(osc);
       });
