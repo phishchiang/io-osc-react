@@ -1,9 +1,13 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import socket from "socket.io-client";
+import oscJS from "osc-js";
 import "./App.css";
 
 function App() {
+  let OSCCC;
+
   const [io, setIo] = useState(null);
+  const [osc, setOsc] = useState(null);
   const [chatContent, setChatContent] = useState([]);
 
   const [msg, setMsg] = useState("");
@@ -18,7 +22,13 @@ function App() {
 
   const connectWebSocket = () => {
     //開啟
+    console.log("set socket io");
     setIo(socket());
+    console.log("set osc");
+    OSCCC = new oscJS();
+    OSCCC.open();
+    setOsc(OSCCC);
+    // setOsc(oscJS());
   };
 
   useEffect(() => {
@@ -44,6 +54,7 @@ function App() {
     if (io) {
       io.on("FINAL", message => {
         console.log(message);
+        // console.log(osc);
       });
     }
   }, [io]);
@@ -80,6 +91,8 @@ function App() {
 
   const onTouchStart = e => {
     setTouchOn(true);
+    let message = new oscJS.Message("/test/random", Math.random());
+    osc.send(message);
   };
 
   const onTouchEnd = e => {
