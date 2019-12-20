@@ -56,11 +56,14 @@ function App() {
       io.on("FINAL", message => {
         console.log(message);
         osc_message = new oscJS.Message(
-          "/test/random",
-          JSON.stringify(message)
+          "/test/01",
+          message[0],
+          "/test/02",
+          message[1]
         );
-        osc.send(osc_message);
-        // console.log(osc);
+        const bundle = new OSC.Bundle([osc_message]);
+        console.log(bundle);
+        osc.send(bundle);
       });
     }
   }, [io]);
@@ -104,22 +107,6 @@ function App() {
   const onTouchEnd = e => {
     setTouchOn(false);
   };
-
-  // const debounce = (func, wait = 1000, immediate = true) => {
-  //   var timeout;
-  //   return function() {
-  //     var context = this,
-  //       args = arguments;
-  //     var later = function() {
-  //       timeout = null;
-  //       if (!immediate) func.apply(context, args);
-  //     };
-  //     var callNow = immediate && !timeout;
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(later, wait);
-  //     if (callNow) func.apply(context, args);
-  //   };
-  // };
 
   return (
     <Fragment>

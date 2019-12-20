@@ -9,7 +9,7 @@ const osc = new OSC({ plugin: new OSC.BridgePlugin(config) });
 
 osc.open(); // start a WebSocket server on port 8080
 
-osc.on("/test/random", message => {
+osc.on("/test/01", message => {
   console.log(message.args); // prints the message arguments
 });
 
