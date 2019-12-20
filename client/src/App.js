@@ -4,7 +4,7 @@ import oscJS from "osc-js";
 import "./App.css";
 
 function App() {
-  let OSCCC;
+  let OSC_OBJ;
   let osc_message;
 
   const [io, setIo] = useState(null);
@@ -26,9 +26,9 @@ function App() {
     console.log("set socket io");
     setIo(socket());
     console.log("set osc");
-    OSCCC = new oscJS();
-    OSCCC.open();
-    setOsc(OSCCC);
+    OSC_OBJ = new oscJS();
+    OSC_OBJ.open();
+    setOsc(OSC_OBJ);
     // setOsc(oscJS());
   };
 
