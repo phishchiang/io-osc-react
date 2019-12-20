@@ -1,7 +1,8 @@
+// const app = express();
+
 const express = require("express");
 const app = express();
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const socketIO = require("socket.io");
 const path = require("path");
 
 const OSC = require("osc-js");
@@ -17,11 +18,19 @@ osc.on("/test/random", message => {
 
 app.use(express.static("client/build"));
 
-app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-);
+const INDEX = path.join(__dirname, "./client/build/index.html");
+const PORT = process.env.PORT || 5500;
 
-// const io = socketIO(server);
+const server = express()
+  .use(express.static("client/build"))
+  .use((req, res) => res.sendFile(INDEX))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+// app.get("*", (req, res) =>
+//   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+// );
+
+const io = socketIO(server);
 
 io.on("connection", socket => {
   console.log("Client connected");
@@ -40,9 +49,9 @@ io.on("connection", function(socket) {
   });
 });
 
-const PORT = process.env.PORT || 5500;
+// const PORT = process.env.PORT || 5500;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+// app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 // const IO_PORT = 5500;
 // http.listen(IO_PORT, () =>
