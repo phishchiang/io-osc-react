@@ -35,7 +35,7 @@ io.on("connection", function(socket) {
     console.log(obj);
     io.emit("FINAL", obj);
   });
-  socket.on("gogogo", function(obj) {
+  socket.on("touch_posi", function(obj) {
     console.log(obj);
     io.emit("FINAL", obj);
   });
