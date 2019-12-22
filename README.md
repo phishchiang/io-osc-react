@@ -1,21 +1,16 @@
-# Socket.io With Osc on Heroku Web Server
+# Socket.io, Osc and React on Heroku Web Server
 
-One Paragraph of project description goes here
+There is still few problem when connecting the osc, maybe the react life cycle setup have some conflict with osc.
 
-### Prerequisites
+I have no answer yet, working in progress...
+
+### Deploy TEST
 
 ```
-git remote -v
+https://multi-io-com.herokuapp.com/
 ```
-
-heroku https://git.heroku.com/blooming-savannah-53970.git (fetch)
-heroku https://git.heroku.com/blooming-savannah-53970.git (push)
-origin git@github.com:phishchiang/socketIoWithOsc.git (fetch)
-origin git@github.com:phishchiang/socketIoWithOsc.git (push)
 
 ### Installing
-
-A step by step series of examples that tell you how to get a development env running
 
 ```
 npm install
