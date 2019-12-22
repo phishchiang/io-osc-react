@@ -27,6 +27,8 @@ io.on("connection", socket => {
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
+setInterval(() => io.emit("time", new Date().toTimeString()), 1000);
+
 io.on("connection", function(socket) {
   console.log(socket.id);
   socket.on("mouse", function(obj) {

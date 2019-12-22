@@ -16,6 +16,8 @@ function App() {
   const [mouseposi, setMouseposi] = useState([0, 0]);
   const [touchOn, setTouchOn] = useState(false);
 
+  const [timeString, setTimeString] = useState(null);
+
   const containerRef = useRef(null);
 
   let ENDPOINT = "http://localhost:3000";
@@ -62,6 +64,10 @@ function App() {
         // console.log(bundle);
         osc.send(osc_message_x);
         osc.send(osc_message_y);
+      });
+
+      io.on("time", timeString => {
+        setTimeString(timeString);
       });
     }
   }, [io]);
@@ -119,6 +125,8 @@ function App() {
         <div>{`Y position : ${mouseposi[1]}`}</div>
         <div>{`Laser gun : ${touchOn}`}</div>
       </div>
+
+      <h1>{timeString}</h1>
     </Fragment>
   );
 }
