@@ -5,8 +5,8 @@ import "./App.css";
 
 function App() {
   let OSC_OBJ;
-  let osc_message;
-  let bundle;
+  // let osc_message;
+  // let bundle;
 
   const [io, setIo] = useState(null);
   const [osc, setOsc] = useState(null);
@@ -56,8 +56,8 @@ function App() {
     if (io) {
       io.on("FINAL", message => {
         console.log(message);
-        osc_message_x = new oscJS.Message("/test/x", message[0]);
-        osc_message_y = new oscJS.Message("/test/y", message[1]);
+        let osc_message_x = new oscJS.Message("/test/x", message[0]);
+        let osc_message_y = new oscJS.Message("/test/y", message[1]);
         // bundle = new oscJS.Bundle([osc_message]);
         // console.log(bundle);
         osc.send(osc_message_x);
