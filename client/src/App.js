@@ -124,9 +124,8 @@ function App() {
         <div>{`X position : ${mouseposi[0]}`}</div>
         <div>{`Y position : ${mouseposi[1]}`}</div>
         <div>{`Laser gun : ${touchOn}`}</div>
+        <h1>{timeString}</h1>
       </div>
-
-      <h1>{timeString}</h1>
     </Fragment>
   );
 }
