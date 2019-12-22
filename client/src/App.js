@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     connectWebSocket();
-  }, [ENDPOINT]);
+  }, []);
 
   // Handle chatContent of 'IOT_in' emit!!!
   useEffect(() => {
@@ -66,6 +66,12 @@ function App() {
         osc.send(osc_message_y);
       });
 
+      io.on("FINAL_bool", message => {
+        console.log(message);
+        let osc_message = new oscJS.Message("/test/x", message);
+        osc.send(osc_message);
+      });
+
       io.on("time", timeString => {
         setTimeString(timeString);
       });
@@ -75,7 +81,7 @@ function App() {
   // Handle touchOn of 'IOT_in' emit!!!
   useEffect(() => {
     if (io) {
-      io.emit("mouse", touchOn);
+      io.emit("mouse", touchOn.toString());
     }
   }, [touchOn]);
 

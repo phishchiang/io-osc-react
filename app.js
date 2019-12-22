@@ -32,9 +32,8 @@ setInterval(() => io.emit("time", new Date().toTimeString()), 1000);
 io.on("connection", function(socket) {
   console.log(socket.id);
   socket.on("mouse", function(obj) {
-    console.log("got something on the server");
     console.log(obj);
-    io.emit("FINAL", obj);
+    io.emit("FINAL_bool", obj);
   });
   socket.on("touch_posi", function(obj) {
     console.log(obj);
