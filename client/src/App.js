@@ -4,12 +4,12 @@ import oscJS from "osc-js";
 import "./App.css";
 
 function App() {
-  // let OSC_OBJ;
+  let OSC_OBJ;
   // let osc_message;
   // let bundle;
 
   const [io, setIo] = useState(null);
-  // const [osc, setOsc] = useState(null);
+  const [osc, setOsc] = useState(null);
   const [chatContent, setChatContent] = useState([]);
 
   const [msg, setMsg] = useState("");
@@ -29,9 +29,9 @@ function App() {
     console.log("set socket io");
     setIo(socket());
     console.log("set osc");
-    // OSC_OBJ = new oscJS();
-    // OSC_OBJ.open();
-    // setOsc(OSC_OBJ);
+    OSC_OBJ = new oscJS();
+    OSC_OBJ.open();
+    setOsc(OSC_OBJ);
     // setOsc(oscJS());
   };
 
@@ -58,12 +58,12 @@ function App() {
     if (io) {
       io.on("FINAL", message => {
         console.log(message);
-        // let osc_message_x = new oscJS.Message("/test/x", message[0]);
-        // let osc_message_y = new oscJS.Message("/test/y", message[1]);
+        let osc_message_x = new oscJS.Message("/test/x", message[0]);
+        let osc_message_y = new oscJS.Message("/test/y", message[1]);
         // bundle = new oscJS.Bundle([osc_message]);
         // console.log(bundle);
-        // osc.send(osc_message_x);
-        // osc.send(osc_message_y);
+        osc.send(osc_message_x);
+        osc.send(osc_message_y);
       });
 
       io.on("time", timeString => {
