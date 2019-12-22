@@ -56,15 +56,12 @@ function App() {
     if (io) {
       io.on("FINAL", message => {
         console.log(message);
-        osc_message = new oscJS.Message(
-          "/test/01",
-          message[0],
-          "/test/02",
-          message[1]
-        );
-        bundle = new oscJS.Bundle(osc_message);
-        console.log(bundle);
-        osc.send(bundle);
+        osc_message_x = new oscJS.Message("/test/x", message[0]);
+        osc_message_y = new oscJS.Message("/test/y", message[1]);
+        // bundle = new oscJS.Bundle([osc_message]);
+        // console.log(bundle);
+        osc.send(osc_message_x);
+        osc.send(osc_message_y);
       });
     }
   }, [io]);

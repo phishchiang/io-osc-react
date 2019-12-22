@@ -9,9 +9,8 @@ const osc = new OSC({ plugin: new OSC.BridgePlugin(config) });
 
 osc.open(); // start a WebSocket server on port 8080
 
-osc.on("/test/01", message => {
-  console.log(message.args); // prints the message arguments
-});
+osc.on("/test/x", message => console.log(message.args));
+osc.on("/test/y", message => console.log(message.args));
 
 const INDEX = path.join(__dirname, "./client/build/index.html");
 const PORT = process.env.PORT || 3000;
