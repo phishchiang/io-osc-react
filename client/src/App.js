@@ -62,7 +62,7 @@ function App() {
           "/test/02",
           message[1]
         );
-        bundle = new oscJS.Bundle([osc_message]);
+        bundle = new oscJS.Bundle(osc_message);
         console.log(bundle);
         osc.send(bundle);
       });
