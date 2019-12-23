@@ -10,11 +10,11 @@ function App() {
 
   const [io, setIo] = useState(null);
   const [osc, setOsc] = useState(null);
-  const [chatContent, setChatContent] = useState([]);
+  // const [chatContent, setChatContent] = useState([]);
 
   const [msg, setMsg] = useState("");
-  const [mouseposi, setMouseposi] = useState([0, 0]);
-  const [touchOn, setTouchOn] = useState(false);
+  const [touchPosi, setTouchPosi] = useState([0, 0]);
+  const [touchFire, setTouchFire] = useState(false);
 
   const [timeString, setTimeString] = useState(null);
 
@@ -40,35 +40,35 @@ function App() {
   }, []);
 
   // Handle chatContent of 'IOT_in' emit!!!
-  useEffect(() => {
-    if (io) {
-      io.emit("mouse", chatContent);
-    }
-  }, [chatContent]);
+  // useEffect(() => {
+  //   if (io) {
+  //     io.emit("touch_posi", chatContent);
+  //   }
+  // }, [chatContent]);
 
   // Handle chatContent of 'IOT_in_02' emit!!!
   useEffect(() => {
     if (io) {
-      io.emit("touch_posi", mouseposi);
+      io.emit("touch_posi", touchPosi);
     }
-  }, [mouseposi]);
+  }, [touchPosi]);
 
   // Handle 'ALL' listner from the server
   useEffect(() => {
     if (io) {
-      io.on("FINAL", message => {
+      io.on("bcat_posi", message => {
         console.log(message);
-        let osc_message_x = new oscJS.Message("/test/x", message[0]);
-        let osc_message_y = new oscJS.Message("/test/y", message[1]);
+        let osc_message_x = new oscJS.Message("/touch/x", message[0]);
+        let osc_message_y = new oscJS.Message("/touch/y", message[1]);
         // bundle = new oscJS.Bundle([osc_message]);
         // console.log(bundle);
         osc.send(osc_message_x);
         osc.send(osc_message_y);
       });
 
-      io.on("FINAL_bool", message => {
+      io.on("bcat_fire", message => {
         console.log(message);
-        let osc_message = new oscJS.Message("/test/x", message);
+        let osc_message = new oscJS.Message("/touch/fire", message);
         osc.send(osc_message);
       });
 
@@ -81,24 +81,12 @@ function App() {
   // Handle touchOn of 'IOT_in' emit!!!
   useEffect(() => {
     if (io) {
-      io.emit("mouse", touchOn.toString());
+      io.emit("touch_fire", touchFire.toString());
     }
-  }, [touchOn]);
+  }, [touchFire]);
 
-  const onChange = e => {
-    e.preventDefault();
-    setMsg(e.target.value);
-    // console.log(msg);
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-    setChatContent([msg, ...chatContent]);
-    io.emit("mouse", msg);
-  };
-
-  const onMouseMove = e => {
-    setMouseposi([
+  const onTouchMove = e => {
+    setTouchPosi([
       Math.floor((1 - e.touches[0].clientX / window.screen.width) * 180),
       Math.floor(
         ((e.touches[0].clientY - containerRef.current.offsetTop) /
@@ -109,13 +97,13 @@ function App() {
   };
 
   const onTouchStart = e => {
-    setTouchOn(true);
+    setTouchFire(true);
     // message = new oscJS.Message("/test/random", Math.random());
     // osc.send(message);
   };
 
   const onTouchEnd = e => {
-    setTouchOn(false);
+    setTouchFire(false);
   };
 
   return (
@@ -124,13 +112,13 @@ function App() {
         className="touch-area"
         ref={containerRef}
         onTouchStart={onTouchStart}
-        onTouchMove={onMouseMove}
+        onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <div>{`X position : ${mouseposi[0]}`}</div>
-        <div>{`Y position : ${mouseposi[1]}`}</div>
-        <div>{`Laser gun : ${touchOn}`}</div>
-        <h1>{timeString}</h1>
+        <div>{`X position : ${touchPosi[0]}`}</div>
+        <div>{`Y position : ${touchPosi[1]}`}</div>
+        <div>{`Laser gun : ${touchFire}`}</div>
+        <h3>{timeString}</h3>
       </div>
     </Fragment>
   );

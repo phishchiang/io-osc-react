@@ -9,8 +9,8 @@ const osc = new OSC({ plugin: new OSC.BridgePlugin(config) });
 
 osc.open(); // start a WebSocket server on port 8080
 
-osc.on("/test/x", message => console.log(message.args));
-osc.on("/test/y", message => console.log(message.args));
+osc.on("/touch/x", message => console.log(message.args));
+osc.on("/touch/y", message => console.log(message.args));
 
 const INDEX = path.join(__dirname, "./client/build/index.html");
 const PORT = process.env.PORT || 3000;
@@ -27,16 +27,16 @@ io.on("connection", socket => {
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
-setInterval(() => io.emit("time", new Date().toTimeString()), 1000);
+// setInterval(() => io.emit("time", new Date().toTimeString()), 1000);
 
 io.on("connection", function(socket) {
   console.log(socket.id);
-  socket.on("mouse", function(obj) {
-    console.log(obj);
-    io.emit("FINAL_bool", obj);
+  socket.on("touch_fire", function(obj) {
+    // console.log(obj);
+    io.emit("bcat_fire", obj);
   });
   socket.on("touch_posi", function(obj) {
-    console.log(obj);
-    io.emit("FINAL", obj);
+    // console.log(obj);
+    io.emit("bcat_posi", obj);
   });
 });
