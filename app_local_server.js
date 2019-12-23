@@ -29,6 +29,16 @@ const io = socketIO(server);
 
 board.on("ready", () => {
   const led = new five.Led(13);
+  const servo_10 = new five.Servo(10);
+  const servo_11 = new five.Servo(11);
+
+  board.repl.inject({
+    servo_10,
+    servo_11
+  });
+
+  servo_10.to(90);
+  servo_11.to(90);
 
   const io = socketIO(server);
 
@@ -52,36 +62,22 @@ board.on("ready", () => {
   });
 
   osc.on("/touch/fire", message => {
-    console.log(message.args[0]);
+    // console.log(message.args[0]);
     if (message.args[0] === "true") {
-      console.log("BBB");
+      console.log("FIRE!!!!");
       led.on();
     }
     if (message.args[0] === "false") {
-      console.log("GGG");
+      console.log("STOP!");
       led.off();
-    } else {
-      console.log("nothing");
     }
   });
-  osc.on("/touch/y", message => console.log(message.args));
+  osc.on("/touch/x", message => {
+    console.log(message.args[0]);
+    servo_10.to(message.args[0]);
+  });
+  osc.on("/touch/y", message => {
+    console.log(message.args[0]);
+    servo_11.to(message.args[0]);
+  });
 });
-
-// io.on("connection", socket => {
-//   console.log("Client connected");
-//   socket.on("disconnect", () => console.log("Client disconnected"));
-// });
-
-// setInterval(() => io.emit("time", new Date().toTimeString()), 1000);
-
-// io.on("connection", function(socket) {
-//   console.log(socket.id);
-//   socket.on("mouse", function(obj) {
-//     console.log(obj);
-//     io.emit("bcat_fire", obj);
-//   });
-//   socket.on("touch_posi", function(obj) {
-//     console.log(obj);
-//     io.emit("bcat_posi", obj);
-//   });
-// });
