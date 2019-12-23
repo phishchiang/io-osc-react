@@ -13,8 +13,8 @@ const osc = new OSC({ plugin: new OSC.BridgePlugin(config) });
 
 osc.open(); // start a WebSocket server on port 8080
 
-// osc.on("/test/x", message => console.log(message.args));
-// osc.on("/test/y", message => console.log(message.args));
+// osc.on("/touch/x", message => console.log(message.args));
+// osc.on("/touch/y", message => console.log(message.args));
 
 const INDEX = path.join(__dirname, "./client/build/index.html");
 const PORT = process.env.PORT || 3000;
@@ -43,15 +43,15 @@ board.on("ready", () => {
     console.log(socket.id);
     socket.on("mouse", function(obj) {
       // console.log(obj);
-      io.emit("FINAL_bool", obj);
+      io.emit("bcat_fire", obj);
     });
     socket.on("touch_posi", function(obj) {
       // console.log(obj);
-      io.emit("FINAL", obj);
+      io.emit("bcat_posi", obj);
     });
   });
 
-  osc.on("/test/x", message => {
+  osc.on("/touch/fire", message => {
     console.log(message.args[0]);
     if (message.args[0] === "true") {
       console.log("BBB");
@@ -64,7 +64,7 @@ board.on("ready", () => {
       console.log("nothing");
     }
   });
-  osc.on("/test/y", message => console.log(message.args));
+  osc.on("/touch/y", message => console.log(message.args));
 });
 
 // io.on("connection", socket => {
@@ -78,10 +78,10 @@ board.on("ready", () => {
 //   console.log(socket.id);
 //   socket.on("mouse", function(obj) {
 //     console.log(obj);
-//     io.emit("FINAL_bool", obj);
+//     io.emit("bcat_fire", obj);
 //   });
 //   socket.on("touch_posi", function(obj) {
 //     console.log(obj);
-//     io.emit("FINAL", obj);
+//     io.emit("bcat_posi", obj);
 //   });
 // });
